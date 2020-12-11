@@ -32,8 +32,8 @@ struct all_pairs_t {
 	struct end_iterator {};  // end sentinal
 
 	iterator begin() const {
-		IT b2 = _begin;
-		return { {_begin, ++b2}, _end };
+		iterator b { {_begin, _begin}, _end };
+		return _begin == _end ? b : ++b;
 	}
 
 	iterator     end()   const { return { {_end, _end}, _end }; }

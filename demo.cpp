@@ -4,12 +4,12 @@
 
 template <class P>
 auto operator<<(std::ostream &os, P &&p)
-	-> decltype(os << std::forward<P>(p).first
-	               << std::forward<P>(p).second)
+	-> decltype(os << p.first << p.second)
 {
-	return os << std::forward<P>(p).first << "\t"
-	          << std::forward<P>(p).second;
+	return os << "( " << std::forward<P>(p).first
+	          << ", " << std::forward<P>(p).second << " )";
 }
+
 
 template <class ...Arg>
 void print_range_for_pairs(Arg &&...arg)
@@ -35,13 +35,13 @@ void print_range_for_pairs2(Arg &&...arg)
 
 void demo1()
 {
-	auto list = { 1,2,3,4,99 };
+	auto list = { 1,2,3,4,5 };
 	print_range_for_pairs(list);
 }
 
 void demo2()
 {
-	auto list = { 1,2,3,4,99 };
+	auto list = { 1,2,3,4,5 };
 	print_range_for_pairs2(list);
 }
 

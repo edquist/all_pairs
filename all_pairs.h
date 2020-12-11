@@ -8,7 +8,7 @@ P next_pair(P pair, End &&end)
 {
 	if (++pair.second == end)
 		if (++(pair.second = ++pair.first) == end)
-			pair.first = pair.second;  // not needed for sentinal version
+			pair.first = pair.second;  // not needed for sentinel version
 	return pair;
 }
 
@@ -26,7 +26,7 @@ struct pairator {
 	End _end;
 
 	struct iterator;
-	struct end_iterator {};  // end sentinal
+	struct end_iterator {};  // end sentinel
 
 	iterator begin() const {
 		iterator b { {_begin, _begin}, _end };
@@ -56,7 +56,7 @@ struct pairator<IT, End>::iterator {
 	bool operator==(const iterator &o) const { return pos == o.pos; }
 	bool operator!=(const iterator &o) const { return pos != o.pos; }
 
-	// end sentinal version
+	// end sentinel version
 	bool operator!=(end_iterator) const { return pos.second != end; }
 };
 

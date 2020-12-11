@@ -16,7 +16,7 @@ void print_range_for_pairs2(Arg &&...arg)
 
 	auto &&range = all_pairs(std::forward<Arg>(arg)...);
 	auto begin   = range.begin();
-	auto end     = range.end2();  // the end sentinal version
+	auto end     = range.end2();  // the end sentinel version
 	for ( ; begin != end; ++begin) {
 		auto &&x = *begin;
 		std::cout << x.first << "\t" << x.second << "\n";
@@ -56,7 +56,7 @@ bool operator!=(const char *p, cstr_end) { return *p != 0; }
 
 void demo5()
 {
-	// all pairs for string with end sentinal
+	// all pairs for string with end sentinel
 	print_range_for_pairs2("abcd", cstr_end{});
 }
 

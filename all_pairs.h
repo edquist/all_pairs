@@ -3,8 +3,8 @@
 #include <utility>
 
 
-template <class P, class IT>   // P ~ std::pair<IT, IT>, w/o refs
-P next_pair(P pair, IT &&end)
+template <class P, class End>   // P ~ std::pair<IT, IT>, w/o refs
+P next_pair(P pair, End &&end)
 {
 	if (++pair.second == end)
 		if (++(pair.second = ++pair.first) == end)
@@ -13,17 +13,17 @@ P next_pair(P pair, IT &&end)
 }
 
 
-template <class P, class IT>
-P &advance_pair(P &prev_pair, IT &&end)
+template <class P, class End>
+P &advance_pair(P &prev_pair, End &&end)
 {
-	return next_pair<P &, IT>(prev_pair, std::forward<IT>(end));
+	return next_pair<P &, End>(prev_pair, std::forward<End>(end));
 }
 
 
-template <class IT>
+template <class IT, class End=IT>
 struct pairator {
-	IT _begin;
-	IT _end;
+	IT  _begin;
+	End _end;
 
 	struct iterator;
 	struct end_iterator {};  // end sentinal
@@ -38,12 +38,12 @@ struct pairator {
 };
 
 
-template <class IT>
-struct pairator<IT>::iterator {
+template <class IT, class End>
+struct pairator<IT, End>::iterator {
 	std::pair<IT, IT> pos;
-	IT end;
+	End end;
 
-	typedef decltype(*end) item_type;
+	typedef decltype(*std::declval<IT>())   item_type;
 	typedef std::pair<item_type, item_type> value_type;
 
 	value_type operator*() const { return {*pos.first, *pos.second}; }
@@ -61,9 +61,9 @@ struct pairator<IT>::iterator {
 };
 
 
-template <class IT>
-pairator<IT>
-all_pairs(IT begin, IT end)
+template <class IT, class End=IT>
+pairator<IT, End>
+all_pairs(IT begin, End end)
 { return {begin, end}; }
 
 

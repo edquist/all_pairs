@@ -24,7 +24,7 @@ P &advance_pair(P &prev_pair, IT &&end)
 
 
 template <class IT>
-struct all_pairs_t {
+struct pairator {
 	IT _begin;
 	IT _end;
 
@@ -42,7 +42,7 @@ struct all_pairs_t {
 
 
 template <class IT>
-struct all_pairs_t<IT>::iterator {
+struct pairator<IT>::iterator {
 	std::pair<IT, IT> pos;
 	IT end;
 
@@ -65,7 +65,7 @@ struct all_pairs_t<IT>::iterator {
 
 
 template <class IT>
-all_pairs_t<IT>
+pairator<IT>
 all_pairs(IT begin, IT end)
 { return {begin, end}; }
 

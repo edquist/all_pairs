@@ -6,12 +6,9 @@
 template <class P, class IT>   // P ~ std::pair<IT, IT>, w/o refs
 P next_pair(P pair, IT &&end)
 {
-	if (++pair.second == end) {
-		pair.second = ++pair.first;
-		++pair.second;
-		if (pair.second == end)  // not needed for sentinal version
-			pair.first = end;
-	}
+	if (++pair.second == end)
+		if (++(pair.second = ++pair.first) == end)
+			pair.first = end;  // not needed for sentinal version
 	return pair;
 }
 
@@ -60,7 +57,7 @@ struct pairator<IT>::iterator {
 	bool operator!=(const iterator &o) const { return pos != o.pos; }
 
 	// end sentinal version
-	bool operator!=(end_iterator) const { return pos.first != end; }
+	bool operator!=(end_iterator) const { return pos.second != end; }
 };
 
 

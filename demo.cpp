@@ -2,11 +2,20 @@
 #include <initializer_list>
 #include <iostream>
 
+template <class P>
+auto operator<<(std::ostream &os, P &&p)
+	-> decltype(os << std::forward<P>(p).first
+	               << std::forward<P>(p).second)
+{
+	return os << std::forward<P>(p).first << "\t"
+	          << std::forward<P>(p).second;
+}
+
 template <class ...Arg>
 void print_range_for_pairs(Arg &&...arg)
 {
 	for (auto &&x : all_pairs(std::forward<Arg>(arg)...) )
-		std::cout << x.first << "\t" << x.second << "\n";
+		std::cout << x << "\n";
 }
 
 template <class ...Arg>
@@ -19,7 +28,7 @@ void print_range_for_pairs2(Arg &&...arg)
 	auto end     = range.end2();  // the end sentinel version
 	for ( ; begin != end; ++begin) {
 		auto &&x = *begin;
-		std::cout << x.first << "\t" << x.second << "\n";
+		std::cout << x << "\n";
 	}
 }
 

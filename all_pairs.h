@@ -28,35 +28,8 @@ struct all_pairs_t {
 	IT _begin;
 	IT _end;
 
+	struct iterator;
 	struct end_iterator {};  // end sentinal
-
-	struct iterator {
-		std::pair<IT, IT> pos;
-		IT end;
-
-		typedef decltype(*end) item_type;
-		typedef std::pair<item_type, item_type> value_type;
-
-		value_type  operator*() const
-		{ return {*pos.first, *pos.second}; }
-
-		iterator &operator++() { 
-			advance_pair(pos, end);
-			return *this;
-		}
-
-
-		bool operator==(const iterator &o) const
-		{ return pos == o.pos; }
-
-		bool operator!=(const iterator &o) const
-		{ return pos != o.pos; }
-
-
-		// end sentinal version
-		bool operator!=(const end_iterator &) const
-		{ return pos.first != end; }
-	};
 
 	iterator begin() const {
 		IT b2 = _begin;
@@ -65,6 +38,36 @@ struct all_pairs_t {
 
 	iterator     end()   const { return { {_end, _end}, _end }; }
 	end_iterator end2()  const { return {}; }  // c++17
+};
+
+
+template <class IT>
+struct all_pairs_t<IT>::iterator {
+	std::pair<IT, IT> pos;
+	IT end;
+
+	typedef decltype(*end) item_type;
+	typedef std::pair<item_type, item_type> value_type;
+
+	value_type  operator*() const
+	{ return {*pos.first, *pos.second}; }
+
+	iterator &operator++() {
+		advance_pair(pos, end);
+		return *this;
+	}
+
+
+	bool operator==(const iterator &o) const
+	{ return pos == o.pos; }
+
+	bool operator!=(const iterator &o) const
+	{ return pos != o.pos; }
+
+
+	// end sentinal version
+	bool operator!=(const end_iterator &) const
+	{ return pos.first != end; }
 };
 
 

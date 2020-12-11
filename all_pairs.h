@@ -66,7 +66,7 @@ struct all_pairs_t<IT>::iterator {
 
 
 	// end sentinal version
-	bool operator!=(const end_iterator &) const
+	bool operator!=(end_iterator) const
 	{ return pos.first != end; }
 };
 

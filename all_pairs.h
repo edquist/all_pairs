@@ -8,7 +8,7 @@ P next_pair(P pair, IT &&end)
 {
 	if (++pair.second == end)
 		if (++(pair.second = ++pair.first) == end)
-			pair.first = end;  // not needed for sentinal version
+			pair.first = pair.second;  // not needed for sentinal version
 	return pair;
 }
 

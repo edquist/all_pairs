@@ -1,4 +1,6 @@
 #include "all_pairs.h"
+#include "all_pairs_out.h"
+#include "generic_ostream_iterator.h"
 #include <initializer_list>
 #include <iostream>
 
@@ -71,6 +73,19 @@ void demo5()
 
 void spacer() { std::cout << "\n----------\n\n"; }
 
+
+void demo6()
+{
+	auto list = { 1,2,3,4,5 };
+	all_pairs_out(ostreamer(std::cout), list);
+}
+
+void demo7()
+{
+	all_pairs_out(ostreamer(std::cout), "abcd", cstr_end{});
+}
+
+
 int main()
 {
 	demo1(); spacer();
@@ -78,5 +93,7 @@ int main()
 	demo3(); spacer();
 	demo4(); spacer();
 	demo5(); spacer();
+	demo6(); spacer();
+	demo7(); spacer();
 }
 

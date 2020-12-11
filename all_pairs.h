@@ -49,25 +49,18 @@ struct all_pairs_t<IT>::iterator {
 	typedef decltype(*end) item_type;
 	typedef std::pair<item_type, item_type> value_type;
 
-	value_type  operator*() const
-	{ return {*pos.first, *pos.second}; }
+	value_type operator*() const { return {*pos.first, *pos.second}; }
 
 	iterator &operator++() {
 		advance_pair(pos, end);
 		return *this;
 	}
 
-
-	bool operator==(const iterator &o) const
-	{ return pos == o.pos; }
-
-	bool operator!=(const iterator &o) const
-	{ return pos != o.pos; }
-
+	bool operator==(const iterator &o) const { return pos == o.pos; }
+	bool operator!=(const iterator &o) const { return pos != o.pos; }
 
 	// end sentinal version
-	bool operator!=(end_iterator) const
-	{ return pos.first != end; }
+	bool operator!=(end_iterator) const { return pos.first != end; }
 };
 
 

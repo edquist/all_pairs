@@ -8,9 +8,9 @@
 template <class Out, class IT, class End=IT>
 void all_pairs_out(Out out, IT begin, End end)
 {
-	for (IT it = begin; begin != end; begin = ++it)
-		while (++begin != end)
-			*out++ = std::make_pair(*it, *begin);
+	for (IT it = begin; it != end; it = ++begin)
+		while (++it != end)
+			*out++ = std::make_pair(*begin, *it);
 }
 
 

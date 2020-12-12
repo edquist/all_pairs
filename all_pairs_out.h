@@ -11,8 +11,8 @@ void all_pairs_out(Out out, IT begin, End end)
 	if (begin == end)
 		return;
 
-	for (IT it1 = begin++; begin != end; ++begin != end || ++(begin = ++it1))
-		*out++ = std::make_pair(*it1, *begin);
+	for (IT it = begin++; begin != end; ++begin != end || ++(begin = ++it))
+		*out++ = std::make_pair(*it, *begin);
 }
 
 
